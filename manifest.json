@@ -7,7 +7,15 @@
 	
 	"permissions": [
 		"bookmarks",
-		"alarms"
+		"alarms",
+		"http://*/",
+		"https://*/"
 	],
-	"options_page": "options.html"
+	"options_page": "options.html",
+	"background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": false
+	}
 }
