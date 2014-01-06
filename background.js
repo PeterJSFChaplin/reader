@@ -1,12 +1,14 @@
-var rssFolderExists = false;
-chrome.bookmarks.search({"title":"RSS"}, function(bookmarkTreeNodes) {
-	if ( bookmarkTreeNodes.length > 0 ) {
-		rssFolderExists = true;
-	}
+chrome.runtime.onInstalled.addListener(function(update) {
+    if ( update.reason !== "chrome_update" ) {
+        chrome.bookmarks.getTree(function(array) {
+            var rootNode = array[0];
+            var otherBookmarks = rootNode.children[1];
+            if ( ! otherBookmarks.children.some(function(node) {return node.title === "RSS"}) ) {
+                chrome.bookmarks.create({
+                    index: 0,
+                    title: "RSS"
+                });
+            }
+        });
+    }
 });
-if ( ! rssFolderExists ) {
-	chrome.bookmarks.create({
-		"title": "RSS",
-		"index": 0
-	});
-};
