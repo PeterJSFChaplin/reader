@@ -1,9 +1,19 @@
-var bookmarks = [];
-chrome.bookmarks.search({"title":"RSS"}, function(rssNodes) {
-	rssNodes.forEach(function(folder) {
-		bookmarks = bookmarks.concat(folder.children);
+$(function() {
+    chrome.bookmarks.getTree(function(array) {
+	var source;
+	array[0].children[1].children.some(function(node) {
+	    if ( node.title === "RSS" ) {
+		source = node;
+		return true;
+	    }
 	});
-});
-bookmarks.forEach(function(node) {
-	document.write(node.title);
+	if ( source === undefined ) {
+	    return false;
+	}
+	var list = $('<ul>');
+	source.children.forEach(function(node) {
+	    list.append($('<li>').text(node.title + ' - ' + node.url));
+	});
+	$('body').append(list);
+    });
 });
