@@ -3,4 +3,4 @@ Reader
 
 An RSS reader extension for google chrome
 
-Only just started with design/development, so nothing works yet and there isn't anything interesting to see.
+I don't have the basics working yet, mostly I'm still just playing around with the code.
